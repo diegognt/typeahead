@@ -1,7 +1,13 @@
 import "./App.css";
+import Typeahead from "./components/typeahead";
 
 function App() {
-  return <h1>A Typeahead</h1>;
+  return (
+    <article>
+      <h1>A random Typeahead</h1>
+      <Typeahead />
+    </article>
+  );
 }
 
 export default App;
