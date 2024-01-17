@@ -1,4 +1,3 @@
-import "./App.css";
 import Typeahead from "./components/typeahead";
 
 function App() {
