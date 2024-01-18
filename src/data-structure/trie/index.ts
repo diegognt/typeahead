@@ -34,4 +34,20 @@ export class Trie<T> {
       }
     }
   }
+
+  valueOf(word: string): T | undefined {
+    let currentNode = this.root;
+
+    for (let i = 0; i < word.length; i++) {
+      const char = word[i];
+
+      if (currentNode.children.has(char)) {
+        currentNode = currentNode.children.get(char) as Node<T>;
+      } else {
+        return undefined;
+      }
+    }
+
+    return currentNode.value;
+  }
 }

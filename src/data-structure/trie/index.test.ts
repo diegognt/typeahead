@@ -47,11 +47,37 @@ describe("The Trie class", () => {
     expect(trie.root.children.get("o")?.value).toBe(undefined);
     expect(trie.root.children.get("o")?.children.has("n")).toBe(true);
 
-    expect(trie.root.children.get("o")?.children.get("n")?.value).toBe(undefined);
-    expect(trie.root.children.get("o")?.children.get("n")?.children.has("e")).toBe(true);
+    expect(trie.root.children.get("o")?.children.get("n")?.value).toBe(
+      undefined
+    );
+    expect(
+      trie.root.children.get("o")?.children.get("n")?.children.has("e")
+    ).toBe(true);
 
-    expect(trie.root.children.get("o")?.children.get("n")?.children.has("e")).toBe(true);
-    expect(trie.root.children.get("o")?.children.get("n")?.children.get("e")?.value).toBe(1);
-    expect(trie.root.children.get("o")?.children.get("n")?.children.get("e")?.children.size).toBe(0);
+    expect(
+      trie.root.children.get("o")?.children.get("n")?.children.has("e")
+    ).toBe(true);
+    expect(
+      trie.root.children.get("o")?.children.get("n")?.children.get("e")?.value
+    ).toBe(1);
+    expect(
+      trie.root.children.get("o")?.children.get("n")?.children.get("e")
+        ?.children.size
+    ).toBe(0);
   });
+
+  test("should return the value of a word inserted into the trie using the 'valueOf' method", () => {
+    const trie = new Trie<Number>();
+    trie.insert("one", 1);
+
+    expect(trie.valueOf("one")).toBe(1);
+  });
+
+  test("should return `undefined` if the word is not in the trie using the 'valueOf' method", () => {
+    const trie = new Trie<Number>();
+    trie.insert("one", 1);
+
+    expect(trie.valueOf("two")).toBe(undefined);
+  });
+
 });
