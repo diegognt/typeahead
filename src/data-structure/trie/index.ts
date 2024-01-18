@@ -8,3 +8,10 @@ export class Node<T> {
   }
 }
 
+export class Trie<T> {
+  root: Node<T>;
+
+  constructor() {
+    this.root = new Node<T>();
+  }
+}
