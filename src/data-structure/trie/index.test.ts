@@ -80,4 +80,24 @@ describe("The Trie class", () => {
     expect(trie.valueOf("two")).toBe(undefined);
   });
 
+  test("should return an array of existing words when uses the 'possibleWords' method with an existing prefix", () => {
+    const trie = new Trie<Number>();
+    trie.insert("one", 1);
+    trie.insert("two", 2);
+    trie.insert("three", 3);
+
+    expect(trie.possibleWords("on")).toEqual(["one"]);
+    expect(trie.possibleWords("t")).toEqual(["two", "three"]);
+    expect(trie.possibleWords("th")).toEqual(["three"]);
+  });
+
+  test("should return an empty array when uses the 'possibleWords' method with a non-existing prefix", () => {
+    const trie = new Trie<Number>();
+    trie.insert("one", 1);
+    trie.insert("two", 2);
+    trie.insert("three", 3);
+
+    expect(trie.possibleWords("f")).toEqual([]);
+  });
+
 });
