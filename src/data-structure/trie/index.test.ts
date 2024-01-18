@@ -37,4 +37,21 @@ describe("The Trie class", () => {
 
     expect(trie).toBeDefined();
   });
+
+  test("should insert a word into the trie with a value using the 'insert' method", () => {
+    const trie = new Trie<Number>();
+    trie.insert("one", 1);
+
+    expect(trie.root.children.size).toBe(1);
+    expect(trie.root.children.has("o")).toBe(true);
+    expect(trie.root.children.get("o")?.value).toBe(undefined);
+    expect(trie.root.children.get("o")?.children.has("n")).toBe(true);
+
+    expect(trie.root.children.get("o")?.children.get("n")?.value).toBe(undefined);
+    expect(trie.root.children.get("o")?.children.get("n")?.children.has("e")).toBe(true);
+
+    expect(trie.root.children.get("o")?.children.get("n")?.children.has("e")).toBe(true);
+    expect(trie.root.children.get("o")?.children.get("n")?.children.get("e")?.value).toBe(1);
+    expect(trie.root.children.get("o")?.children.get("n")?.children.get("e")?.children.size).toBe(0);
+  });
 });
