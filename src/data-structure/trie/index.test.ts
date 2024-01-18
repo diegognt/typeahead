@@ -31,3 +31,10 @@ describe("The Node class", () => {
   });
 });
 
+describe("The Trie class", () => {
+  test("should be able to be instantiated", () => {
+    const trie = new Trie();
+
+    expect(trie).toBeDefined();
+  });
+});
