@@ -1,0 +1,34 @@
+import { useState, useEffect } from 'react';
+
+type Pokemon = {
+  name: string;
+  url: string;
+}
+
+const URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=300";
+
+function usePokemonApi() {
+  const [data, setData] = useState<Pokemon[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(URL);
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return { data, isLoading, error };
+};
+
+export default usePokemonApi;
