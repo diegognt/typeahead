@@ -79,7 +79,7 @@ export class Trie<T> {
    * @returns {string[]} The list of words found.
    */
   possibleWords(prefix: string = ""): string[] {
-    let currentNode = this.search(prefix) as Node<T>;
+    const currentNode = this.search(prefix) as Node<T>;
 
     if (!currentNode) return [];
 
@@ -103,7 +103,7 @@ export class Trie<T> {
     word = "",
     result: string[] = []
   ): string[] {
-    let currentNode = node || this.root;
+    const currentNode = node || this.root;
 
     currentNode.children.forEach((node: Node<T>, char: string) => {
       if (node.value && node.children.size === 0) {
