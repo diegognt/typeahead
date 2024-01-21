@@ -1,12 +1,9 @@
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
 import Typeahead from "./index";
 
 
 describe("Typeahead", () => {
-
-  afterEach(() => cleanup());
-
   test("renders", () => {
     render(<Typeahead />);
   });
@@ -31,10 +28,11 @@ describe("Typeahead", () => {
   });
 
   test("has a `search` HTML element as wrapper", () => {
-    const { container } = render(<Typeahead />);
+    render(<Typeahead />);
 
-    expect(container.firstChild).toBeInTheDocument();
-    expect(container.firstChild?.nodeName).toBe("SEARCH");
+    const wrapper = screen.getByRole("search");
+
+    expect(wrapper).toBeInTheDocument();
   });
 });
 
