@@ -1,6 +1,6 @@
-import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
+import { renderHook, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import usePokemonApi from "./use-poke-api";
-import { act, renderHook } from "@testing-library/react";
 
 const mockData = [
   { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
@@ -37,17 +37,14 @@ describe("The 'usePokeApi'", () => {
     });
 
     test("should return data", async () => {
-      let result;
+      const { result } = renderHook(() => usePokemonApi());
 
-      await act(async () => {
-        result = renderHook(() => usePokemonApi());
-      });
 
-      const { data, error, isLoading } = result!.result.current;
-
-      expect(data).toEqual(mockData);
-      expect(error).toBe(false);
-      expect(isLoading).toBe(false);
+      await waitFor(() => expect(result.current).toEqual({
+        data: mockData,
+        error: false,
+        isLoading: false,
+      }));
     });
   });
 
@@ -67,17 +64,13 @@ describe("The 'usePokeApi'", () => {
     });
 
     test("should return the 'error' as True", async () => {
-      let result;
+      const {        result} = renderHook(() => usePokemonApi());
 
-      await act(async () => {
-        result = renderHook(() => usePokemonApi());
-      });
-
-      const { data, error, isLoading } = result!.result.current;
-
-      expect(data).toEqual([]);
-      expect(error).toBe(true);
-      expect(isLoading).toBe(false);
+      await waitFor(() => expect(result.current).toEqual({
+        data: [],
+        error: true,
+        isLoading: false,
+      }));
     });
   });
 });
