@@ -14,7 +14,7 @@ function usePokemonApi() {
       try {
         const response = await fetch(URL);
         const data = await response.json();
-        setData(data);
+        setData(data.results);
       } catch (error) {
         setError(true);
       } finally {
