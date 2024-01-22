@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Pokemon } from '../types';
 
-type Pokemon = {
-  name: string;
-  url: string;
-}
 
 const URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=300";
 
