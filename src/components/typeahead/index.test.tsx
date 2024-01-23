@@ -1,20 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import Typeahead from "./index";
-
+import userEvent from "@testing-library/user-event";
 
 describe("Typeahead", () => {
   test("renders", () => {
     render(<Typeahead />);
-  });
-
-  test("renders an search textbox", () => {
-    render(<Typeahead />);
-
-    const searchbox = screen.getByRole("searchbox");
-
-    expect(searchbox).toBeInTheDocument();
-    expect(searchbox).toHaveAttribute("name", "typeahead");
   });
 
   test("the search textbox is wrapped by a `form` HTML element", () => {
@@ -34,5 +25,19 @@ describe("Typeahead", () => {
 
     expect(wrapper).toBeInTheDocument();
   });
-});
 
+  test("shows a paragraph with the textbox value", async () => {
+    const user = userEvent.setup();
+    render(<Typeahead />);
+
+    const input = screen.getByRole("searchbox");
+
+    input.focus();
+
+    await user.type(input, "pikachu");
+
+    const paragraph = screen.getByText("pikachu");
+
+    await waitFor(() => expect(paragraph).toBeInTheDocument());
+  });
+});
