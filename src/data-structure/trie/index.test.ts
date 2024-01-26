@@ -91,6 +91,15 @@ describe("The Trie class", () => {
     expect(trie.possibleWords("th")).toEqual(["three"]);
   });
 
+  test("should return an empyt array when uses the 'possibleWords' method with an empty prefix", () => {
+    const trie = new Trie<number>();
+    trie.insert("one", 1);
+    trie.insert("two", 2);
+    trie.insert("three", 3);
+
+    expect(trie.possibleWords("")).toEqual([]);
+  });
+
   test("should return an empty array when uses the 'possibleWords' method with a non-existing prefix", () => {
     const trie = new Trie<number>();
     trie.insert("one", 1);
