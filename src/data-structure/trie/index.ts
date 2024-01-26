@@ -79,6 +79,8 @@ export class Trie<T> {
    * @returns {string[]} The list of words found.
    */
   possibleWords(prefix: string = ""): string[] {
+    if (!prefix) return [];
+
     const currentNode = this.search(prefix) as Node<T>;
 
     if (!currentNode) return [];
