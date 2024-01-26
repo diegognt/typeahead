@@ -1,11 +1,12 @@
-import {
-  ChangeEvent,
-  useDeferredValue,
-  useState,
-} from "react";
-import Input from "./Input";
+import { ChangeEvent, useDeferredValue, useState } from "react";
+import { Trie } from "../../data-structure/trie";
+import { usePokemon } from "../../providers/PokemonProvider";
+import { Pokemon } from "../../types";
+import Input from "../Input";
+import { Suggestion, SuggestionList } from "../Suggestions";
 
 function Typeahead() {
+  const pokemons: Trie<Pokemon> = usePokemon();
   const [query, setQuery] = useState<string>("");
   const deferredQuery = useDeferredValue<string>(query);
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) =>
@@ -22,7 +23,13 @@ function Typeahead() {
           />
         </form>
       </search>
-      <p className="text-white">{deferredQuery}</p>
+      {pokemons.possibleWords(deferredQuery).length > 0 ? (
+        <SuggestionList spacing={4}>
+          {pokemons.possibleWords(deferredQuery).map((suggestion: string) => (
+            <Suggestion key={suggestion}>{suggestion}</Suggestion>
+          ))}
+        </SuggestionList>
+      ) :  null}
     </>
   );
 }
