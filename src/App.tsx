@@ -1,6 +1,6 @@
 import { ErrorBoundary } from "react-error-boundary";
-import Typeahead from "./components/Typeahead";
 import { PokemonProvider } from "./providers/PokemonProvider";
+import Typeahead from "./components/Typeahead";
 
 function App() {
   return (
