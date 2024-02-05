@@ -10,6 +10,11 @@ function Typeahead() {
   const [query, setQuery] = useState<string>("");
   const deferredQuery = useDeferredValue<string>(query);
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if ( e.target.value.length < 2 ) {
+      setQuery("");
+      return;
+    }
+
     setQuery(e.target.value);
 
   }

@@ -48,7 +48,7 @@ describe("The Typeahead", () => {
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
-  test("shows a list of suggestion as user type", async () => {
+  test("does not show a list of suggestion when user type less than two characters", async () => {
     const user = userEvent.setup();
     renderWithPokemonProvider(<Typeahead />, {}, mockedPokemonList);
 
@@ -58,16 +58,23 @@ describe("The Typeahead", () => {
 
     await act(async () => user.type(input, "b"));
 
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
+  test("shows a list of suggestion as user type more than three characters", async () => {
+    const user = userEvent.setup();
+    renderWithPokemonProvider(<Typeahead />, {}, mockedPokemonList);
+
+    const input = screen.getByRole("searchbox");
+
+    input.focus();
+
+    await act(async () => user.type(input, "b"));
+    await act(async () => user.type(input, "u"));
+
     expect(await screen.findByRole("list")).toBeInTheDocument();
-    expect(await screen.findAllByRole("listitem")).toHaveLength(4);
+    expect(await screen.findAllByRole("listitem")).toHaveLength(2);
     expect(await screen.findByText(/bulbasaur/i)).toBeInTheDocument();
-    expect(await screen.findByText(/blastoise/i)).toBeInTheDocument();
     expect(await screen.findByText(/butterfree/i)).toBeInTheDocument();
-    expect(await screen.findByText(/beedrill/i)).toBeInTheDocument();
-
-    await act(async () => user.type(input, "e"));
-
-    expect(await screen.findAllByRole("listitem")).toHaveLength(1);
-    expect(await screen.findByText(/beedrill/i)).toBeInTheDocument();
   });
 });
