@@ -7,7 +7,7 @@ import { Children, ReactNode } from "react";
 
 type SuggestionListProps = {
   children: ReactNode;
-  spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  spacing?: 0 | 2 | 4 | 6 | 8 | 10;
 };
 
 type SuggestionProps = {
@@ -18,7 +18,7 @@ export function SuggestionList(props: SuggestionListProps) {
   const { children, spacing = 2 } = props;
 
   return (
-    <ul className={`flex flex-col gap-${spacing}`}>
+    <ul className={`flex flex-col gap-${spacing} pt-${spacing} h-96`}>
       {Children.map(children, (child) => {
         return child;
       })}
